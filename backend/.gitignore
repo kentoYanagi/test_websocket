@@ -1,0 +1,13 @@
+
+/.bundle
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+/vendor/*
+.byebug_history
+
+
+!.keep

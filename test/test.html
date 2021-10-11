@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="button" type="button">発火</button>
+    <script>
+
+        const generateIdentifier = (command, identifier) => {
+            return JSON.stringify({command, identifier: JSON.stringify(identifier)})
+        }
+        const host = "127.0.0.1"
+        const port = 3000
+        const webSocketClient = new WebSocket(`ws://${host}:${port}/cable`)
+
+        // 送信
+        const send = (event) => {
+            const message = generateIdentifier("subscribe", {"channel": "ChatChannel"});
+            console.log(message)
+            webSocketClient.send(message)
+        }
+
+        // 受信
+        webSocketClient.onmessage = (event) => {
+            console.log(event.data)
+        }
+        document.querySelector("#button").addEventListener("click", (e) => send(e))
+    </script>
+</body>
+</html>
